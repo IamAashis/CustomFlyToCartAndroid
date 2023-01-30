@@ -239,6 +239,7 @@ class AnimationUtil {
         mAnimationListener = listener
         return this
     }
+
     companion object {
         private const val DEFAULT_DURATION = 1000
         private const val DEFAULT_DURATION_DISAPPEAR = 200
