@@ -5,5 +5,6 @@ package com.custom.customflytocartanimation.model
  */
 data class CartModel(
     var id: Int? = null,
-    var message: String? = null
+    var message: String? = null,
+    var resourcesId: Int? = null
 )

@@ -4,13 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.custom.customflytocartanimation.R
 import com.custom.customflytocartanimation.model.CartModel
 
 
 class ItemsAdapter(
-    val context: Context?, val outlets: List<CartModel>,
+    val context: Context?,
+    val outlets: List<CartModel>,
+    productItemActionListener: ProductItemActionListener,
     private val onItemClick: (position: Int) -> Unit
 ) :
     RecyclerView.Adapter<MyViewHolder>() {
@@ -27,4 +30,9 @@ class ItemsAdapter(
     }
 
     override fun getItemCount(): Int = 10
+
+
+    interface ProductItemActionListener {
+        fun onItemTap(imageView: ImageView?)
+    }
 }
