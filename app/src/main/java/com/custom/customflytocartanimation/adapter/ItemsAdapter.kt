@@ -23,9 +23,8 @@ class ItemsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val outlet = outlets[position]
 
     }
 
-    override fun getItemCount(): Int = outlets.size
+    override fun getItemCount(): Int = 10
 }

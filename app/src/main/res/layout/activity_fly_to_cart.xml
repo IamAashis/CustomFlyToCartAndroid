@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".FlyToCartActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvCartView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <RelativeLayout
         android:id="@+id/rltOrderDetail"
         android:layout_width="match_parent"
@@ -90,14 +95,7 @@
                     android:textColor="@color/white"
                     android:visibility="gone" />
 
-                <ImageView
-                    android:id="@+id/imvArrowButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="14dp"
-                    android:visibility="gone" />
+
             </RelativeLayout>
         </LinearLayout>
     </RelativeLayout>
