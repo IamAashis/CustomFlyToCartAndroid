@@ -3,21 +3,20 @@ package com.custom.customflytocartanimation
 import android.R
 import android.animation.Animator
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.custom.customflytocartanimation.adapter.ItemsAdapter
 import com.custom.customflytocartanimation.databinding.ActivityFlyToCartBinding
+import com.custom.customflytocartanimation.listener.ItemActionListener
 import com.custom.customflytocartanimation.model.CartModel
 import com.custom.customflytocartanimation.util.AnimationUtil
 
 
 class FlyToCartActivity : AppCompatActivity() {
 
-    private var ratingList = mutableListOf<CartModel>()
+    private var list = mutableListOf<CartModel>()
     private lateinit var binding: ActivityFlyToCartBinding
     lateinit var itemAdapter: ItemsAdapter
 
@@ -26,24 +25,21 @@ class FlyToCartActivity : AppCompatActivity() {
         binding = ActivityFlyToCartBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        addedItem()
+        makeCartList()
         initRecyclerView()
-    }
-
-    private fun addedItem() {
-        ratingList = CartModel(
-            id = 1,
-            message = "This is Test", R.drawable.ic_android
-        )
-
     }
 
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rcvCartView.layoutManager = layoutManager
         itemAdapter =
-            ItemsAdapter(this, ratingList) {
-                makeFlyAnimation()
+            ItemsAdapter(this, list, itemActionListener = object : ItemActionListener {
+                override fun onItemTap(imageView: ImageView?) {
+                    if (imageView != null) {
+                        makeFlyAnimation(imageView)
+                    }
+                }
+            }) {
                 Toast.makeText(this, "Click Here", Toast.LENGTH_SHORT).show()
             }
         binding.rcvCartView.adapter = itemAdapter
@@ -67,5 +63,46 @@ class FlyToCartActivity : AppCompatActivity() {
                 override fun onAnimationCancel(animation: Animator) {}
                 override fun onAnimationRepeat(animation: Animator) {}
             }).startAnimation()
+    }
+
+    private fun makeCartList() {
+//        val list: MutableList<CartModel> = ArrayList()
+        var i = 1
+        var c = 1
+        while (i <= 50) {
+            if (c > 4) c = 1
+            when (c) {
+                1 -> list.add(
+                    CartModel(
+                        i,
+                        "product_$i",
+                        com.custom.customflytocartanimation.R.drawable.ic_android
+                    )
+                )
+                2 -> list.add(
+                    CartModel(
+                        i,
+                        "product_$i",
+                        com.custom.customflytocartanimation.R.drawable.ic_android
+                    )
+                )
+                3 -> list.add(
+                    CartModel(
+                        i,
+                        "product_$i",
+                        com.custom.customflytocartanimation.R.drawable.ic_android
+                    )
+                )
+                4 -> list.add(
+                    CartModel(
+                        i,
+                        "product_$i",
+                        com.custom.customflytocartanimation.R.drawable.ic_android
+                    )
+                )
+            }
+            i++
+            c++
+        }
     }
 }

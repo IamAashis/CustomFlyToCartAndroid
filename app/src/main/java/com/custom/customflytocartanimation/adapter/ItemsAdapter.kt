@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.custom.customflytocartanimation.R
+import com.custom.customflytocartanimation.listener.ItemActionListener
 import com.custom.customflytocartanimation.model.CartModel
 
 
 class ItemsAdapter(
     val context: Context?,
-    val outlets: List<CartModel>,
-    productItemActionListener: ProductItemActionListener,
+    val itemList: List<CartModel>?,
+    val itemActionListener: ItemActionListener,
     private val onItemClick: (position: Int) -> Unit
 ) :
     RecyclerView.Adapter<MyViewHolder>() {
@@ -26,13 +27,14 @@ class ItemsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
+        val list = itemList?.get(position)
+        list?.resourcesId?.let { holder.imvImage.setImageResource(it) }
+        holder.txvMessage.text = list?.message
+        holder.imvImage.setOnClickListener {
+            itemActionListener.onItemTap(holder.imvImage)
+        }
     }
 
     override fun getItemCount(): Int = 10
 
-
-    interface ProductItemActionListener {
-        fun onItemTap(imageView: ImageView?)
-    }
 }
