@@ -46,7 +46,7 @@ class AnimationUtil {
 
     fun setTargetView(view: View?): AnimationUtil {
         mTarget = view
-        setOriginRect(mTarget!!.width.toFloat(), mTarget!!.height.toFloat())
+        mTarget?.height?.toFloat()?.let { setOriginRect(mTarget!!.width.toFloat(), it) }
         return this
     }
 
@@ -64,7 +64,10 @@ class AnimationUtil {
 
     fun setDestView(view: View?): AnimationUtil {
         mDest = view
-        setDestRect(mDest!!.width.toFloat(), mDest!!.width.toFloat())
+        setDestRect(
+            (mDest?.width?.toFloat() ?: 0.1) as Float,
+            (mDest?.width?.toFloat() ?: 0.1) as Float
+        )
         return this
     }
 
@@ -90,24 +93,24 @@ class AnimationUtil {
 
     private fun prepare(): Boolean {
         if (mContextReference!!.get() != null) {
-            val decoreView = mContextReference!!.get()!!.window.decorView as ViewGroup
-            mBitmap = drawViewToBitmap(mTarget, mTarget!!.width, mTarget!!.height)
-            if (mImageView == null) mImageView = ImageView(mContextReference!!.get())
-            mImageView!!.setImageBitmap(mBitmap!!)
-            mImageView!!.borderWidth = mBorderWidth
-            mImageView!!.borderColor = mBorderColor
+            val decoreView = mContextReference?.get()?.window?.decorView as ViewGroup
+            mBitmap = drawViewToBitmap(mTarget, mTarget?.width ?: 0, mTarget?.height ?: 0)
+            if (mImageView == null) mImageView = ImageView(mContextReference?.get())
+            mImageView?.setImageBitmap(mBitmap!!)
+            mImageView?.borderWidth = mBorderWidth
+            mImageView?.borderColor = mBorderColor
             val src = IntArray(2)
-            mTarget!!.getLocationOnScreen(src)
-            val params = FrameLayout.LayoutParams(mTarget!!.width, mTarget!!.height)
+            mTarget?.getLocationOnScreen(src)
+            val params = FrameLayout.LayoutParams(mTarget?.width ?: 10, mTarget?.height ?: 10)
             params.setMargins(src[0], src[1], 0, 0)
-            if (mImageView!!.parent == null) decoreView.addView(mImageView, params)
+            if (mImageView?.parent == null) decoreView.addView(mImageView, params)
         }
         return true
     }
 
     fun startAnimation() {
         if (prepare()) {
-            mTarget!!.visibility = View.INVISIBLE
+            mTarget?.visibility = View.INVISIBLE
             avatarRevealAnimator.start()
         }
     }//                        return (float) (Math.sin((0.5f * input) * Math.PI));
@@ -116,8 +119,8 @@ class AnimationUtil {
     //        float scaleFactor = Math.max(2f * destY / originY, 2f * destX / originX);
     private val avatarRevealAnimator: AnimatorSet
         @SuppressLint("ObjectAnimatorBinding") private get() {
-            val endRadius = Math.max(destX, destY) / 2
-            val startRadius = Math.max(originX, originY)
+            val endRadius = destX.coerceAtLeast(destY) / 2
+            val startRadius = originX.coerceAtLeast(originY)
             val mRevealAnimator: Animator = ObjectAnimator.ofFloat(
                 mImageView,
                 "drawableRadius",
@@ -158,7 +161,7 @@ class AnimationUtil {
                     val src = IntArray(2)
                     val dest = IntArray(2)
                     mImageView?.getLocationOnScreen(src)
-                    mDest!!.getLocationOnScreen(dest)
+                    mDest?.getLocationOnScreen(dest)
                     val y: Float = mImageView!!.y
                     val x: Float = mImageView!!.x
                     val translatorX: Animator = ObjectAnimator.ofFloat<View>(
@@ -212,14 +215,14 @@ class AnimationUtil {
             return animatorCircleSet
         }
 
-     fun drawViewToBitmap(view: View?, width: Int, height: Int): Bitmap {
+    fun drawViewToBitmap(view: View?, width: Int, height: Int): Bitmap {
         val drawable: Drawable = BitmapDrawable()
         //        view.layout(0, 0, width, height);
         val dest = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
         val c = Canvas(dest)
         drawable.bounds = Rect(0, 0, width, height)
         drawable.draw(c)
-        view!!.draw(c)
+        view?.draw(c)
         //        view.layout(0, 0, width, height);
         return dest
     }
@@ -227,7 +230,7 @@ class AnimationUtil {
     private fun reset() {
         mBitmap!!.recycle()
         mBitmap = null
-        if (mImageView?.getParent() != null) (mImageView?.getParent() as ViewGroup).removeView(
+        if (mImageView?.parent != null) (mImageView?.parent as ViewGroup).removeView(
             mImageView
         )
         mImageView = null

@@ -57,11 +57,6 @@ class FlyToCartActivity : AppCompatActivity() {
                 override fun onAnimationStart(animation: Animator) {}
                 override fun onAnimationEnd(animation: Animator) {
 //                    addItemToCart()
-                    Toast.makeText(
-                        this@FlyToCartActivity,
-                        "Continue Shopping...",
-                        Toast.LENGTH_SHORT
-                    ).show()
                 }
 
                 override fun onAnimationCancel(animation: Animator) {}
