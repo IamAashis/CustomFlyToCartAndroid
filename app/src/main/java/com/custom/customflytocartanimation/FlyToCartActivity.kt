@@ -45,13 +45,23 @@ class FlyToCartActivity : AppCompatActivity() {
 
     private fun makeFlyAnimation(targetView: ImageView) {
         val destView = binding.ivmCartLogo
-//        binding.ivmCartLogo.setImageDrawable(targetView)
+        binding.ivmCartLogo.setImageBitmap(
+            AnimationUtil().drawViewToBitmap(
+                targetView,
+                targetView.width,
+                targetView.height
+            )
+        )
         AnimationUtil().attachActivity(this).setTargetView(targetView).setMoveDuration(1000)
             .setDestView(destView).setAnimationListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(animation: Animator) {}
                 override fun onAnimationEnd(animation: Animator) {
 //                    addItemToCart()
-                    Toast.makeText(this@FlyToCartActivity, "Continue Shopping...", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@FlyToCartActivity,
+                        "Continue Shopping...",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onAnimationCancel(animation: Animator) {}
@@ -92,3 +102,5 @@ class FlyToCartActivity : AppCompatActivity() {
         }
     }
 }
+
+

@@ -212,7 +212,7 @@ class AnimationUtil {
             return animatorCircleSet
         }
 
-    private fun drawViewToBitmap(view: View?, width: Int, height: Int): Bitmap {
+     fun drawViewToBitmap(view: View?, width: Int, height: Int): Bitmap {
         val drawable: Drawable = BitmapDrawable()
         //        view.layout(0, 0, width, height);
         val dest = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
