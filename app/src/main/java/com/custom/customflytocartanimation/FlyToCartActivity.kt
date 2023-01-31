@@ -1,6 +1,5 @@
 package com.custom.customflytocartanimation
 
-import android.R
 import android.animation.Animator
 import android.os.Bundle
 import android.widget.ImageView
@@ -32,32 +31,27 @@ class FlyToCartActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.rcvCartView.layoutManager = layoutManager
-        itemAdapter =
-            ItemsAdapter(this, list, itemActionListener = object : ItemActionListener {
-                override fun onItemTap(imageView: ImageView?) {
-                    if (imageView != null) {
-                        makeFlyAnimation(imageView)
-                    }
+        itemAdapter = ItemsAdapter(this, list, itemActionListener = object : ItemActionListener {
+            override fun onItemTap(imageView: ImageView?) {
+                if (imageView != null) {
+                    makeFlyAnimation(imageView)
                 }
-            }) {
-                Toast.makeText(this, "Click Here", Toast.LENGTH_SHORT).show()
             }
+        }) {
+            Toast.makeText(this, "Click Here", Toast.LENGTH_SHORT).show()
+        }
         binding.rcvCartView.adapter = itemAdapter
     }
 
     private fun makeFlyAnimation(targetView: ImageView) {
         val destView = binding.ivmCartLogo
+//        binding.ivmCartLogo.setImageDrawable(targetView)
         AnimationUtil().attachActivity(this).setTargetView(targetView).setMoveDuration(1000)
             .setDestView(destView).setAnimationListener(object : Animator.AnimatorListener {
                 override fun onAnimationStart(animation: Animator) {}
                 override fun onAnimationEnd(animation: Animator) {
 //                    addItemToCart()
-                    Toast.makeText(
-                        this@FlyToCartActivity,
-                        "Continue Shopping...",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
+                    Toast.makeText(this@FlyToCartActivity, "Continue Shopping...", Toast.LENGTH_SHORT).show()
                 }
 
                 override fun onAnimationCancel(animation: Animator) {}
@@ -74,30 +68,22 @@ class FlyToCartActivity : AppCompatActivity() {
             when (c) {
                 1 -> list.add(
                     CartModel(
-                        i,
-                        "product_$i",
-                        com.custom.customflytocartanimation.R.drawable.ic_android
+                        i, "product_$i", com.custom.customflytocartanimation.R.drawable.ic_android
                     )
                 )
                 2 -> list.add(
                     CartModel(
-                        i,
-                        "product_$i",
-                        com.custom.customflytocartanimation.R.drawable.ic_android
+                        i, "product_$i", com.custom.customflytocartanimation.R.drawable.ic_android
                     )
                 )
                 3 -> list.add(
                     CartModel(
-                        i,
-                        "product_$i",
-                        com.custom.customflytocartanimation.R.drawable.ic_android
+                        i, "product_$i", com.custom.customflytocartanimation.R.drawable.ic_android
                     )
                 )
                 4 -> list.add(
                     CartModel(
-                        i,
-                        "product_$i",
-                        com.custom.customflytocartanimation.R.drawable.ic_android
+                        i, "product_$i", com.custom.customflytocartanimation.R.drawable.ic_android
                     )
                 )
             }

@@ -13,7 +13,7 @@ import com.custom.customflytocartanimation.model.CartModel
 
 class ItemsAdapter(
     val context: Context?,
-    val itemList: List<CartModel>?,
+    private val itemList: List<CartModel>?,
     val itemActionListener: ItemActionListener,
     private val onItemClick: (position: Int) -> Unit
 ) :
@@ -35,6 +35,6 @@ class ItemsAdapter(
         }
     }
 
-    override fun getItemCount(): Int = 10
+    override fun getItemCount(): Int = itemList?.size ?: 0
 
 }
