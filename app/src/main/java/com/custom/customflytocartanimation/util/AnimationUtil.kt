@@ -97,8 +97,9 @@ class AnimationUtil {
             mBitmap = drawViewToBitmap(mTarget, mTarget?.width ?: 0, mTarget?.height ?: 0)
             if (mImageView == null) mImageView = ImageView(mContextReference?.get())
             mImageView?.setImageBitmap(mBitmap!!)
-            mImageView?.borderWidth = mBorderWidth
-            mImageView?.borderColor = mBorderColor
+//            mImageView?.borderWidth = mBorderWidth
+//            mImageView?.borderColor = mBorderColor
+//            mImageView?.borderColor = mBorderColor
             val src = IntArray(2)
             mTarget?.getLocationOnScreen(src)
             val params = FrameLayout.LayoutParams(mTarget?.width ?: 10, mTarget?.height ?: 10)
