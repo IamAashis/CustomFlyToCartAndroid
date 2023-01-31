@@ -35,6 +35,7 @@ class FlyToCartActivity : AppCompatActivity() {
             id = 1,
             message = "This is Test", R.drawable.ic_android
         )
+
     }
 
     private fun initRecyclerView() {
